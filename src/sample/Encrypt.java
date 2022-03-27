@@ -1,8 +1,6 @@
 package sample;
 
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -11,7 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static sample.Main.*;
-import static sample.Utils.nextNumber;
+import static sample.Utils.*;
 
 public final class Encrypt {
     private final String pathToFile;
@@ -91,7 +89,6 @@ public final class Encrypt {
 
     private static List<String> numbersToWord(Integer[] arr){
         List<String> result = new LinkedList<>();
-
             List<Character> charList = new LinkedList<>();
             for (int i = 0; i < arr.length; i+=3){
                 int matrixNumber = arr[i];
@@ -114,45 +111,44 @@ public final class Encrypt {
             default -> ' ';
         };
     }
+    private void displayPeriods(List<Integer[][]> periodList, Controller controller){
+        for (Integer[][] matrix: periodList) {
+            Utils.printMatrix(controller, matrix);
+        }
+    }
+    private String buildEncryptedText(Controller controller, List<Integer[]> numbersFromPeriod){
+        StringBuilder encryptedString = new StringBuilder();
+        for (Integer[] arr: numbersFromPeriod) {
+            displayInfo(Arrays.toString(arr).replaceAll("[^a-zA-Z0-9_-]", ""), controller);
+            String str = (Encrypt.numbersToWord(arr).toString().replaceAll("[^a-zA-Z0-9_-]", ""));
+            displayInfo(str, controller);
+            encryptedString.append(str).append(" ");
+        }
+        displayInfo("Зашифрованный текст: " + encryptedString, controller);
+        return encryptedString.toString();
+    }
 
     public void encrypt(Controller controller) throws FileNotFoundException {
-        StringBuilder textToDisplay = new StringBuilder();
         List<Integer[][]> periodList;
         String text2Encrypt = Utils.getTextFromDoc(pathToFile);
 
-//        controller.setTextArea("sss");
-        textToDisplay.append("Исходная матрица: \n");
-        controller.setTextArea(textToDisplay.toString());
-//        System.out.println("Исходная матрица: ");
-        Utils.printMatrix(matrix1, matrix2, matrix3);
+        displayInfo("Исходная матрица: ", controller);
+        Utils.printMatrix(controller, matrix1, matrix2, matrix3);
 
-        System.out.println("Текст для шифрования: " + text2Encrypt +"\n");
+        displayInfo("Текст для шифрования: " + text2Encrypt +"\n", controller);
 
         findNumber(text2Encrypt, matrix1, matrix2, matrix3);
 
-        System.out.println("Координа буквы в матрице(номер матрицы - строка - колонка): ");
-        Utils.printMatrix(toMatrix(lettersKeys));
+        displayInfo("Координата буквы в матрице(номер матрицы - строка - колонка): ", controller);
+        Utils.printMatrix(controller, toMatrix(lettersKeys));
 
-        System.out.println("Разбивка матрицы на периоды: ");
+        displayInfo("Разбивка матрицы на периоды: ", controller);
         periodList = period(toMatrix(lettersKeys));
-        for (Integer[][] matrix: periodList) {
-            Utils.printMatrix(matrix);
-        }
 
-        System.out.println("Читаем цифры из периодов(горизонтально) и находим соответсвующие буквы в изначальных матрицах");
+        displayPeriods(periodList, controller);
+
+        displayInfo("Читаем цифры из периодов(горизонтально) и находим соответсвующие буквы в изначальных матрицах", controller);
         List<Integer[]> numbersFromPeriod = matrixListToArrList(periodList);
-        StringBuilder encryptedString = new StringBuilder();
-        for (Integer[] arr: numbersFromPeriod) {
-            System.out.println(Arrays.toString(arr).replaceAll("[^a-zA-Z0-9_-]", ""));
-            String str = (Encrypt.numbersToWord(arr).toString().replaceAll("[^a-zA-Z0-9_-]", ""));
-            System.out.println(str);
-            encryptedString.append(str).append(" ");
-        }
-
-        try(FileWriter writer = new FileWriter("encrypted text.txt", false)){
-            writer.write(String.valueOf(encryptedString));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        saveEncryptedText(buildEncryptedText(controller, numbersFromPeriod), controller);
     }
 }

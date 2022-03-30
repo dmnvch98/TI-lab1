@@ -10,7 +10,7 @@ public class Main extends Application {
     final static Character[][] matrix1 = {{'E','P','S'},
             {'D','U','C'},
             {'V','W','Y'}};
-    final static Character[][] matrix2 = {{'M',' ','Z'},
+    final static Character[][] matrix2 = {{'M','.','Z'},
             {'L','K','X'},
             {'N','B','T'}};
     final static Character[][] matrix3 = {{'F','G','O'},

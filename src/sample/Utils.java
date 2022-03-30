@@ -50,7 +50,7 @@ public final class Utils {
         controller.setTextArea("\n");
     }
 
-    static int nextNumber(int i, int size){
+    public static int nextNumber(int i, int size){
         int period = 5;
         int dd = size - i;
         if (dd < period){

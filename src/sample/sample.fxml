@@ -12,6 +12,6 @@
       <Text layoutX="28.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Выберите файл" />
       <Text fx:id="path" layoutX="113.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select file" />
       <Button layoutX="28.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#encrypt" text="Зашифровать" />
-      <Button layoutX="150.0" layoutY="136.0" mnemonicParsing="false" text="Расшифровать" />
+      <Button layoutX="150.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#decrypt" text="Расшифровать" />
    </children>
 </AnchorPane>

@@ -5,13 +5,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <Button layoutX="28.0" layoutY="64.0" mnemonicParsing="false" onMouseClicked="#getText" text="Выбрать" />
-      <TextArea fx:id="textArea" layoutX="290.0" prefHeight="600.0" prefWidth="508.0" />
-      <Text layoutX="28.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Выберите файл" />
-      <Text fx:id="path" layoutX="113.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select file" />
-      <Button layoutX="28.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#encrypt" text="Зашифровать" />
-      <Button layoutX="150.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#decrypt" text="Расшифровать" />
+      <Button layoutX="35.0" layoutY="17.0" mnemonicParsing="false" onMouseClicked="#getText" text="Выбрать" />
+      <TextArea fx:id="textArea" layoutY="51.0" prefHeight="499.0" prefWidth="600.0" />
+      <Text fx:id="path" layoutX="120.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Выберите файл" />
+      <Button layoutX="183.0" layoutY="565.0" mnemonicParsing="false" onMouseClicked="#encrypt" text="Зашифровать" />
+      <Button layoutX="309.0" layoutY="565.0" mnemonicParsing="false" onMouseClicked="#decrypt" text="Расшифровать" />
    </children>
 </AnchorPane>

@@ -4,7 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
+import static sample.Main.*;
 
 public final class Utils {
     public static String getTextFromDoc(String path) throws FileNotFoundException {
@@ -17,7 +23,7 @@ public final class Utils {
     }
 
     public static void saveEncryptedText(String encryptedString, Controller controller){
-        String fileName = "Зашифрованный текст.txt";
+        String fileName = "результат.txt";
         try(FileWriter writer = new FileWriter(fileName, false)){
             writer.write(String.valueOf(encryptedString));
             displayInfo("Файл с результатом сохранен в " + fileName, controller);
@@ -62,6 +68,43 @@ public final class Utils {
     static public void displayInfo(String text, Controller controller){
         System.out.println(text);
         controller.setTextArea(text + "\n");
+    }
+
+    public static  List<String> numbersToWord(Integer[] arr){
+        List<String> result = new LinkedList<>();
+        List<Character> charList = new LinkedList<>();
+        for (int i = 0; i < arr.length; i+=3){
+            int matrixNumber = arr[i];
+            int rowNumber = arr[i+1];
+            int columnNumber = arr[i+2];
+            charList.add(getLetter(matrixNumber,rowNumber-1,columnNumber-1));
+        }
+        result.add(charList.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining())
+        );
+        return result;
+    }
+
+    public static  Character getLetter(int matrixNumber, int rowNumber, int columnNumber){
+        return switch (matrixNumber) {
+            case 1 -> matrix1[rowNumber][columnNumber];
+            case 2 -> matrix2[rowNumber][columnNumber];
+            case 3 -> matrix3[rowNumber][columnNumber];
+            default -> ' ';
+        };
+    }
+
+    public static String buildEncryptedText(Controller controller, List<Integer[]> numbersFromPeriod){
+        StringBuilder encryptedString = new StringBuilder();
+        for (Integer[] arr: numbersFromPeriod) {
+            displayInfo(Arrays.toString(arr).replaceAll("[^a-zA-Z0-9_-]", ""), controller);
+            String str = (numbersToWord(arr).toString().replaceAll("[^a-zA-Z0-9_-]", ""));
+            displayInfo(str, controller);
+            encryptedString.append(str).append(" ");
+        }
+        displayInfo("Результат: " + encryptedString, controller);
+        return encryptedString.toString();
     }
 
 }

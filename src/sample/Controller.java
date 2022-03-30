@@ -39,7 +39,7 @@ public class Controller implements Initializable {
 
     @FXML
     void decrypt(MouseEvent event) throws FileNotFoundException {
-        new Decrypt(path.getText()).decrypt(this);
+        new Precondition(path.getText()).start(this, "decrypt");
     }
 
     @Override

@@ -88,7 +88,7 @@ public final class Precondition {
         displayInfo("Исходная матрица: ", controller);
         Utils.printMatrix(controller, matrix1, matrix2, matrix3);
 
-        displayInfo("Текст для шифрования: " + text2Encrypt +"\n", controller);
+        displayInfo("Текст для обработки: " + text2Encrypt +"\n", controller);
 
         findNumber(text2Encrypt, matrix1, matrix2, matrix3);
 
@@ -100,8 +100,9 @@ public final class Precondition {
 
         displayPeriods(periodList, controller);
 
-        if ("encrypt".equals(action)) {
-            new Encrypt(periodList).encrypt(controller);
+        switch (action) {
+            case "encrypt" -> new Encrypt(periodList).encrypt(controller);
+            case "decrypt" -> new Decrypt(periodList).decrypt(controller);
         }
     }}
 
